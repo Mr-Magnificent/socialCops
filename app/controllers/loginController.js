@@ -8,13 +8,11 @@ const verify = Promise.promisify(jwt.verify);
 
 exports.login = async (req, res) => {
     let file = await readFile(__dirname + '/../../loginDatabase.txt');
-    debug(req.body.email);
     if (req.body.email in file) {
         const storedPass = file[req.body.email];
         if (await bcrypt.compare(req.body.password, storedPass)) {
             // res.send({"message": "user matched"});
             const token = await sign(req.body.email, process.env.APP_KEY);
-            console.log(token);
             res.cookie('jwt', token, {
                 maxAge: 900000,
                 httpOnly: true
@@ -30,7 +28,6 @@ exports.login = async (req, res) => {
             "message": "Email not registered"
         });
     }
-    // res.sendStatus(200);
 }
 
 exports.create = async (req, res) => {
@@ -39,6 +36,7 @@ exports.create = async (req, res) => {
         res.send({
             "message": "Email already exists!"
         });
+        return;
     }
     const pass = await bcrypt.hash(req.body.password, parseInt(process.env.SALT));
     file[req.body.email] = pass;
@@ -48,11 +46,9 @@ exports.create = async (req, res) => {
 
 exports.logout = async (req, res) => {
     debug(__dirname + '/../../loginDatabase.txt');
-    debug(req.cookies['jwt']);
     const email = await verify(req.cookies['jwt'], process.env.APP_KEY);
     res.clearCookie('jwt');
     let file = await readFile(__dirname + '/../../loginDatabase.txt');
-    console.log(file);
     delete file[email];
     await fs.promises.writeFile(__dirname + '/../../loginDatabase.txt', JSON.stringify(file));
     res.sendStatus(200);

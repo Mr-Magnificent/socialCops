@@ -4,7 +4,8 @@ const app = express.Router();
 
 const authentication = require('../app/auth/authentication');
 const loginController = require('../app/controllers/loginController');
-const jsonPatch = require('../app/controllers/jsonPatch');
+const jsonPatchController = require('../app/controllers/jsonPatchController');
+const imageController = require('../app/controllers/imageController');
 
 app.put('/create', loginController.create);
 app.post('/login', loginController.login);
@@ -12,7 +13,7 @@ app.post('/login', loginController.login);
 app.use(authentication(process.env.APP_KEY));
 
 app.get('/logout', loginController.logout);
-app.post('/patch', jsonPatch);
-// app.post('/create', Authentication.create);
+app.post('/patch', jsonPatchController);
+app.get('image', imageController.resize);
 
 module.exports = app;
