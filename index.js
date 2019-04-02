@@ -2,10 +2,11 @@ const express = require("express");
 const app = express();
 require('dotenv').config();
 const debug = require('debug')('index:');
-const router = require('./routes/api');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+
+const router = require('./routes/api');
 
 const PORT = process.env.PORT || 3000;
 

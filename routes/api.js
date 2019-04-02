@@ -14,6 +14,6 @@ app.use(authentication(process.env.APP_KEY));
 
 app.get('/logout', loginController.logout);
 app.post('/patch', jsonPatchController);
-app.get('image', imageController.resize);
+app.get('/image', imageController.resize);
 
 module.exports = app;
