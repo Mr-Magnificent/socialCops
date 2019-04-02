@@ -19,12 +19,12 @@ exports.login = async (req, res) => {
             });
             res.sendStatus(200);
         } else {
-            res.send({
+            res.status(400).send({
                 "message": "password does not match!"
             });
         }
     } else {
-        res.send({
+        res.status(400).send({
             "message": "Email not registered"
         });
     }

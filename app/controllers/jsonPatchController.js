@@ -7,6 +7,6 @@ module.exports = async (req, res) => {
         res.send(updateJson);
     } catch (err) {
         debug(err);
-        res.send("Patch was invalid!");
+        res.status(400).send("Patch was invalid!");
     }
 }

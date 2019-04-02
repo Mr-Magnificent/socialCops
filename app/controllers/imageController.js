@@ -13,11 +13,11 @@ exports.resize = async (req, res) => {
 
     if (!isValidUrl.test(imageUrl)) {
         debug.extend('resize')(imageUrl + ' :Invalid url');
-        return res.send({"message": "Invalid url"});
+        return res.status(400).send({"message": "Invalid url"});
     }
     if (!fileType.test(imageUrl)) {
         debug.extend('resize')(imageUrl + ' :Invalid filetype');
-        return res.send({"message": "Invalid mimetype"});
+        return res.status(400).send({"message": "Invalid mimetype"});
     }
     const type = fileType.exec(imageUrl)[0];
 
@@ -34,6 +34,7 @@ exports.resize = async (req, res) => {
         debug.extend('filename')(__dirname + '/' + imageName);
     } catch (err) {
         debug.extend('curl error')(err.message);
+        res.status(500).send({"message": "Unexpected error occured"});
     }
 
     // debug.extend('resize:')(imageUrl.href);

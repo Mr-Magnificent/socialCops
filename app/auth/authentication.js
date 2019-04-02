@@ -8,11 +8,11 @@ module.exports = secret => async (req, res, next) => {
     try {
         email = await jwt.verify(token, secret);
     } catch (err) {
-        res.send("User not valid!");
+        res.status(403).send("User not valid!");
         return;
     }
     if (!email) {
-        res.send("Unexpected Error Occurred");
+        res.status(500).send("Unexpected Error Occurred");
     }
     next();
 }
