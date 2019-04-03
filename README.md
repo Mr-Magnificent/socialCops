@@ -8,8 +8,8 @@ Creates an account to access the protected routes
 ```json
 // The body contains email and password to create an account
 {
-    {"email":"ayush_poddar@live.com"},
-    {"password":"12345"}
+    "email":"ayush_poddar@live.com",
+    "password":"12345"
 }
 ```
 # An account must be created before logging in to access the protected routes.
@@ -21,8 +21,8 @@ Logs in a member that has been created by /create.
 ```json
 // Body should contain the email and password with which create was called
 {
-    {"email":"ayush_poddar@live.com"},
-    {"password":"12345"}
+    "email":"ayush_poddar@live.com",
+    "password":"12345"
 }
 ```
 Login must be done before accessing the protected routes. Once request made, A JWT token is saved in cookie with name jwt.
@@ -73,4 +73,4 @@ $ npm start
 ```markdown
 $ npm run test
 ```
-# 100% statement coverage except for lines pertaining to morgan and file operations. File operations since tests are run on seperate "database" for users.
+100% statement coverage except for lines pertaining to morgan and file operations. File operations since tests are run on seperate "database" for users.
