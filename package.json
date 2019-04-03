@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha --no-warnings --timeout=10000",
+    "test": "nyc --reporter=html --reporter=text mocha --exit --no-warnings --timeout=10000",
     "start": "set NODE_ENV=dev DEBUG=* && nodemon ./index.js"
   },
   "keywords": [],
