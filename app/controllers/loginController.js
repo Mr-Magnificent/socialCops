@@ -33,6 +33,7 @@ exports.login = async (req, res) => {
 
 exports.create = async (req, res) => {
     let file = await readFile(__dirname + '/../../loginDatabase.txt');
+    debug.extend('create:')(file);
     if (process.env.NODE_ENV === 'test')
         file = await readFile(__dirname + '/../../testDatabase.txt');
 
@@ -56,7 +57,7 @@ exports.create = async (req, res) => {
     });
 }
 
-exports.logout = async (req, res) => {
+exports.delete = async (req, res) => {
     const email = await verify(req.cookies['jwt'], process.env.APP_KEY);
 
     res.clearCookie('jwt');
@@ -75,8 +76,20 @@ exports.logout = async (req, res) => {
     res.sendStatus(200);
 }
 
+exports.logout = async (req, res) => {
+    const email = await verify(req.cookies['jwt'], process.env.APP_KEY);
+
+    res.clearCookie('jwt');
+
+    res.sendStatus(200);
+}
+
 const readFile = async (path) => {
     let file = await fs.promises.readFile(path);
+    if (file == '') {
+        return {};
+    }
+    debug.extend('create')(file);
     return JSON.parse(file);
 }
 

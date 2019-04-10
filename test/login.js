@@ -317,4 +317,52 @@ describe('/logout', () => {
             .get('/api/logout');
         resLogout.should.has.status(200);
     })
+    it('should login again', async () => {
+        const body = {
+            "email": "ayush.zombiestar@gmail.com",
+            "password": "12345"
+        }
+
+        let agent = chai.request.agent(server);
+        const res = await agent
+            .post('/api/login')
+            .set("Content-Type", "application/x-www-form-urlencoded")
+            .send(body);
+        res.should.have.status(200);
+        res.should.have.cookie('jwt');
+    })
+})
+
+describe('/delete', () => {
+    it('should delete user', async () => {
+        const body = {
+            "email": "ayush.zombiestar@gmail.com",
+            "password": "12345"
+        }
+
+        let agent = chai.request.agent(server);
+        const res = await agent
+            .post('/api/login')
+            .set("Content-Type", "application/x-www-form-urlencoded")
+            .send(body);
+        res.should.have.status(200);
+        res.should.have.cookie('jwt');
+
+        const resLogout = await agent
+            .get('/api/delete');
+        resLogout.should.has.status(200);
+    })
+    it('should not login now', async () => {
+        const body = {
+            "email": "ayush.zombiestar@gmail.com",
+            "password": "12345"
+        }
+
+        let agent = chai.request.agent(server);
+        const res = await agent
+            .post('/api/login')
+            .set("Content-Type", "application/x-www-form-urlencoded")
+            .send(body);
+        res.should.have.status(400);
+    })
 })

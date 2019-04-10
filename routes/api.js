@@ -13,6 +13,7 @@ app.post('/login', loginController.login);
 app.use(authentication(process.env.APP_KEY));
 
 app.get('/logout', loginController.logout);
+app.get('/delete', loginController.delete);
 app.post('/patch', jsonPatchController);
 app.get('/image', imageController.resize);
 
