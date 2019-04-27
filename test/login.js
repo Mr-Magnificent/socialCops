@@ -144,7 +144,8 @@ describe('/patch', () => {
 
             resPatch.should.have.status(403);
 
-        })
+        });
+        
         it('should patch', async () => {
             const body = {
                 "email": "ayush.zombiestar@gmail.com",

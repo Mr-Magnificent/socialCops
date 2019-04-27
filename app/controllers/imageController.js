@@ -23,11 +23,7 @@ exports.resize = async (req, res) => {
 
     const imageName = randomString.generate({length: 8, charset: 'alphabetic'}) + type;
     try {
-        const result = await exec('curl', [imageUrl, '--output', imageName]);
-        let stdout = result.stdout;
-        debug.extend('curl stdout')(stdout);
-        debug.extend('curl stderr')(result.stderr);
-        let imageFile = await jimp.read(`./${imageName}`)
+        let imageFile = await jimp.read(imageUrl);
         await imageFile.resize(50, 50).writeAsync(`./${imageName}`);
         res.download(`./${imageName}`);
         setTimeout( async () => await fs.promises.unlink(__dirname + '/../../' + imageName), 0);
