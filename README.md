@@ -32,6 +32,8 @@ Login must be done before accessing the protected routes. Once request made, A J
 ## /api/logout - ***get*** method (protected)
 logs out a member which is already logged in by removing the cookie containing JWT token.
 
+## /api/delete - ***get*** method (protected)
+Deletes the cutrent user loggin in by removing from loginDatabase.txt
 
 ## /api/patch - ***post*** method (protected)
 patches a JSON object that is sent to the server along with the patch and returns the patched JSON object
